@@ -1,4 +1,4 @@
-import { Box, InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { Box, InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        flexGrow: 1,
     },
     menuButton: {
         marginRight: theme.spacing(1),
@@ -48,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(1),
         display: 'flex',
         alignItems: 'center',
-        width: "60vw"
     },
     input: {
         marginLeft: theme.spacing(1),
@@ -64,21 +64,37 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
     },
+    tableHeader: {
+        background: '#212121',
+        paddingTop: theme.spacing(1),
+        borderTopLeftRadius: '4px',
+        borderTopRightRadius: '4px',
+        boxShadow: '0px 0px 0px 0px'
+    },
+    tableTitle: {
+        flexGrow: 1,
+        paddingBottom: theme.spacing(1),
+    },
+    tableRow: {
+        '&:nth-of-type(odd)': {
+            background: "rgba(0, 0, 0, 0.04)"
+        },
+    },
 }))
 
-const CONTRATO_VIGENTE = "Vigente"
+const PROGRAMADA = "PROGRAMADA"
 
-const FINALIZA_CONTRATO = "Baja"
+const CANCELADA = "CANCELADA"
 
-const createData = (index: number, name: string, team: string, cell: string, status: String) =>
-    ({ index, name, team, cell, status })
+const createData = (index: number, name: string, schedule: string, subject: string, status: String) =>
+    ({ index, name, schedule, subject, status })
 
 var initialRows = [
-    createData(0, 'Lucas A. Silvestri', "Decidir", "Z", CONTRATO_VIGENTE),
-    createData(1, 'Javier Parada Castro', "Decidir", "W", CONTRATO_VIGENTE),
-    createData(2, 'Homero J. Simpson', "Springfield", "7G", CONTRATO_VIGENTE),
-    createData(3, 'Carl Carlson', "Springfield", "8G", CONTRATO_VIGENTE),
-    createData(4, 'Lenny Lennard', "Springfield", "8G", CONTRATO_VIGENTE),
+    createData(0, 'Leonardo Dalmas', "13:00 hs", "Que hay de nuevo en la Scrum guide 2020", PROGRAMADA),
+    createData(1, 'José Guzman', "14:30 hs", "Chaos Engineering", PROGRAMADA),
+    createData(2, 'Javier Parada Castro/Lucas A. Silvestri', "16:00 hs", "Cypress Automatización en tiempos modernos", PROGRAMADA),
+    createData(3, 'Mauro Mosconi', "16:30 hs", "Arquitecturas de micro frontends", PROGRAMADA),
+    createData(4, 'Ariel Gamez/Melanie Romero/Vasco', "17:00 hs", "Arquitecturas Limpias, el regreso de la fuerza", PROGRAMADA),
 ]
 
 const Landing = (props: any) => {
@@ -87,7 +103,7 @@ const Landing = (props: any) => {
     const [rows, setRows] = useState<any[]>(initialRows)
 
     const handleSearch = (event: any) => {
-        setRows(initialRows.filter((row: any) => row.name.toLowerCase().includes(event.target.value.toLowerCase())))
+        setRows(initialRows.filter((row: any) => row.subject.toLowerCase().includes(event.target.value.toLowerCase())))
     }
 
     return (
@@ -109,38 +125,32 @@ const Landing = (props: any) => {
                 </Toolbar>
             </AppBar>
             <Box className={classes.box}>
-                <Typography variant="h3" gutterBottom>
-                    Lista de Speakers de la RedbeConf 2021
-                </Typography>
-                <Paper component="form" className={classes.search}>
-                    <InputBase
-                        className={classes.input}
-                        placeholder="Buscar empleado"
-                        onChange={handleSearch}
-                        inputProps={{ 'aria-label': 'Buscar empleado' }}
-                    />
-                    <IconButton className={classes.iconButton} aria-label="search">
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
-
-                <TableContainer component={Paper}>
+                <AppBar position="static" className={classes.tableHeader}>
+                    <Toolbar>
+                        <Typography variant="h6" className={classes.tableTitle}>
+                            Listado de Speakers
+                        </Typography>
+                        <Paper component="form" className={classes.search}>
+                            <InputBase
+                                className={classes.input}
+                                placeholder="Buscar charla"
+                                onChange={handleSearch}
+                                inputProps={{ 'aria-label': 'Buscar charla' }}
+                            />
+                            <IconButton className={classes.iconButton} aria-label="search">
+                                <SearchIcon />
+                            </IconButton>
+                        </Paper>
+                    </Toolbar>
+                </AppBar>
+                <TableContainer component={Paper} style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px' }}>
                     <Table className={classes.table} aria-label="employees" size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Empleado</TableCell>
-                                <TableCell align="center">Equipo</TableCell>
-                                <TableCell align="center">Celula</TableCell>
-                                <TableCell align="center">Estado</TableCell>
-                                <TableCell align="center">baja</TableCell>
-                            </TableRow>
-                        </TableHead>
                         <TableBody>
                             {rows.map((row) => (
-                                <TableRow key={row.name}>
+                                <TableRow className={classes.tableRow} key={row.name}>
                                     <TableCell align="center">{row.name}</TableCell>
-                                    <TableCell align="center">{row.team}</TableCell>
-                                    <TableCell align="center">{row.cell}</TableCell>
+                                    <TableCell align="center">{row.subject}</TableCell>
+                                    <TableCell align="center">{row.schedule}</TableCell>
                                     <TableCell align="center">{row.status}</TableCell>
                                     <TableCell align="center">
                                         <Button
@@ -148,11 +158,11 @@ const Landing = (props: any) => {
                                             color="secondary"
                                             startIcon={<DeleteIcon />}
                                             onClick={() => {
-                                                row.status = FINALIZA_CONTRATO
+                                                row.status = CANCELADA
                                                 setRows([...rows])
                                             }}
                                         >
-                                            Baja
+                                            Cancelar
                                         </Button>
                                     </TableCell>
                                 </TableRow>
