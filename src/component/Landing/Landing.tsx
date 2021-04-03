@@ -152,7 +152,7 @@ const Landing = (props: any) => {
                                     <TableCell align="center">{row.subject}</TableCell>
                                     <TableCell align="center">{row.schedule}</TableCell>
                                     <TableCell align="center">{row.status}</TableCell>
-                                    <TableCell align="center">
+                                    <TableCell align="center">{row.status === CANCELADA ? <span /> :
                                         <Button
                                             variant="contained"
                                             color="secondary"
@@ -163,7 +163,7 @@ const Landing = (props: any) => {
                                             }}
                                         >
                                             Cancelar
-                                        </Button>
+                                        </Button>}
                                     </TableCell>
                                 </TableRow>
                             ))}
