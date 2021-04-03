@@ -44,7 +44,7 @@ type User = {
   password: string
 }
 
-const users = [{ email: "javier.parada@red.bee", password: "1234" }, { email: "lucas.silvestri@redb.ee", password: "1234" }]
+const users = [{ email: "javier.parada@redb.ee", password: "1234" }, { email: "lucas.silvestri@redb.ee", password: "1234" }]
 
 const findUser = ({ email, password }: any): User | undefined => users.find(user => user.email === email && user.password === password)
 
