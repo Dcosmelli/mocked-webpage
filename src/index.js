@@ -6,6 +6,8 @@ import Login from './component/Login/Login'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 
+document.title = "Redbee Studios"
+
 ReactDOM.render(
   <Router>
     <Switch>
