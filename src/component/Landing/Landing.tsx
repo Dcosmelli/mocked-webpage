@@ -75,7 +75,7 @@ const createData = (index: number, name: string, team: string, cell: string, sta
 
 var initialRows = [
     createData(0, 'Lucas A. Silvestri', "Decidir", "Z", CONTRATO_VIGENTE),
-    createData(1, 'Javier H. Parada', "Decidir", "W", CONTRATO_VIGENTE),
+    createData(1, 'Javier Parada Castro', "Decidir", "W", CONTRATO_VIGENTE),
     createData(2, 'Homero J. Simpson', "Springfield", "7G", CONTRATO_VIGENTE),
     createData(3, 'Carl Carlson', "Springfield", "8G", CONTRATO_VIGENTE),
     createData(4, 'Lenny Lennard', "Springfield", "8G", CONTRATO_VIGENTE),
@@ -98,7 +98,7 @@ const Landing = (props: any) => {
                         <img src={Logo} className={classes.logo} alt="logo" />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Redbee
+                        Redbee-conf
                     </Typography>
                     <Button
                         color="inherit"
@@ -109,7 +109,9 @@ const Landing = (props: any) => {
                 </Toolbar>
             </AppBar>
             <Box className={classes.box}>
-
+                <Typography variant="h3" gutterBottom>
+                    Lista de Speakers de la RedbeConf 2021
+                </Typography>
                 <Paper component="form" className={classes.search}>
                     <InputBase
                         className={classes.input}
@@ -140,7 +142,6 @@ const Landing = (props: any) => {
                                     <TableCell align="center">{row.team}</TableCell>
                                     <TableCell align="center">{row.cell}</TableCell>
                                     <TableCell align="center">{row.status}</TableCell>
-                                    <TableCell align="center">{row.actions}</TableCell>
                                     <TableCell align="center">
                                         <Button
                                             variant="contained"
