@@ -92,6 +92,7 @@ const Login = (props: any) => {
               required
               fullWidth
               id="email"
+              data-cy="email"
               label="Correo Electronico"
               name="email"
               autoComplete="email"
@@ -108,6 +109,7 @@ const Login = (props: any) => {
               label="Contraseña"
               type="password"
               id="password"
+              data-cy="password"
               autoComplete="current-password"
               onChange={handlePasswordChange}
             />
@@ -124,6 +126,7 @@ const Login = (props: any) => {
               color="primary"
               className={classes.submit}
               onClick={() => { setShowfeedback(true) }}
+              data-cy="submit"
             >
               ingresar
             </Button>
@@ -146,10 +149,10 @@ const Login = (props: any) => {
           </div>
         </Paper>
       </Box >
-      <Snackbar open={showfeedback} autoHideDuration={2500} onClose={onSubmit}>
+      <Snackbar open={showfeedback} autoHideDuration={1500} onClose={onSubmit}>
         {userFound()
           ? <Alert severity="success">¡Ingreso Exitoso!</Alert>
-          : <Alert severity="error">Email o contraseña incorrecta. Ponte en contacto con soporte para mas información</Alert>
+          : <Alert severity="error" data-cy="error">Email o contraseña incorrecta. Ponte en contacto con soporte para mas información</Alert>
         }
       </Snackbar>
     </div>

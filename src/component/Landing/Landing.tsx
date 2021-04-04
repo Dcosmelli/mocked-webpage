@@ -90,7 +90,7 @@ const createData = (index: number, name: string, schedule: string, subject: stri
     ({ index, name, schedule, subject, status })
 
 var initialRows = [
-    createData(0, 'Leonardo Dalmas', "13:00 hs", "Que hay de nuevo en la Scrum guide 2020", PROGRAMADA),
+    createData(0, 'Leonardo Dalmaso', "13:00 hs", "Que hay de nuevo en la Scrum guide 2020", PROGRAMADA),
     createData(1, 'José Guzman', "14:30 hs", "Chaos Engineering", PROGRAMADA),
     createData(2, 'Javier Parada Castro/Lucas A. Silvestri', "16:00 hs", "Cypress Automatización en tiempos modernos", PROGRAMADA),
     createData(3, 'Mauro Mosconi', "16:30 hs", "Arquitecturas de micro frontends", PROGRAMADA),
@@ -135,6 +135,7 @@ const Landing = (props: any) => {
                                 className={classes.input}
                                 placeholder="Buscar charla"
                                 onChange={handleSearch}
+                                data-cy="search"
                                 inputProps={{ 'aria-label': 'Buscar charla' }}
                             />
                             <IconButton className={classes.iconButton} aria-label="search">
@@ -147,13 +148,14 @@ const Landing = (props: any) => {
                     <Table className={classes.table} aria-label="employees" size="small">
                         <TableBody>
                             {rows.map((row) => (
-                                <TableRow className={classes.tableRow} key={row.name}>
+                                <TableRow className={classes.tableRow} key={row.name} data-cy="speakerTable">
                                     <TableCell align="center">{row.name}</TableCell>
                                     <TableCell align="center">{row.subject}</TableCell>
                                     <TableCell align="center">{row.schedule}</TableCell>
-                                    <TableCell align="center">{row.status}</TableCell>
+                                    <TableCell align="center" data-cy={`status-${row.index}`}>{row.status}</TableCell>
                                     <TableCell align="center">{row.status === CANCELADA ? <span /> :
                                         <Button
+                                            data-cy={`cancelButton-${row.index}`}
                                             variant="contained"
                                             color="secondary"
                                             startIcon={<DeleteIcon />}
