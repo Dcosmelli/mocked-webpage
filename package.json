@@ -6,6 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress": "concurrently --kill-others \"BROWSER=none npm start\" \"cypress install && cypress open\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,6 +41,9 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "concurrently": "^6.0.0",
+    "cypress": "^6.8.0",
+    "typescript": "^4.2.3"
   }
 }

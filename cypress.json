@@ -1,0 +1,10 @@
+{
+  "baseUrl":"http://localhost:3000",
+  "testFiles": ["**/*.ts", "**/*.ts"],
+  "videoUploadOnPasses": true,
+  "screenshotOnRunFailure": true,
+  "env": {
+    "USER": "javier.parada@redb.ee",
+    "PASS": "1234"
+  }
+}

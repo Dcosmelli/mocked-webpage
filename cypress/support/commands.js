@@ -1,0 +1,1 @@
+import './overwritten/log.command'
